@@ -48,8 +48,9 @@ RUN mkdir -p ${NOVNC_HOME} \
 # Add all install scripts for further steps
 COPY ./setup/ ${SETUP_DIR}/scripts
 RUN find ${SETUP_DIR}/scripts -iname "*.sh" -exec chmod +x {} + \
- && find ${SETUP_DIR}/scripts -iname "*.sh" -exec bash {} +
+ && for script in $(ls "${SETUP_DIR}/scripts"); do bash "${SETUP_DIR}/scripts/$script"; done
 
+# clean
 RUN apt-get install --no-install-recommends -y -f \
  && apt-get clean -y \
  && rm -rf /var/lib/apt/lists/* ${SETUP_DIR}
