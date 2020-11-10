@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # every exit != 0 fails the script
-#set -e
+# set -e
 
 # see: https://github.com/felbinger/PostInstall/blob/master/scripts/installGoogleChrome.sh
 
