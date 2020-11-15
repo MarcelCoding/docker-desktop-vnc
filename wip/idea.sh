@@ -7,7 +7,7 @@ if [[ $(/usr/bin/id -u) != "0" ]]; then
   echo "Please run the script as root!"
 else
   mkdir -p /opt/idea
-  wget -O- "https://download-cf.jetbrains.com/idea/ideaIU-2020.2.3.tar.gz" | tar -xzC /opt/idea --strip 1
+  wget -O- "https://download-cf.jetbrains.com/idea/ideaIU-2020.2.3.tar.gz" | tar -xzvC /opt/idea --strip 1
   wget -O "/opt/idea/icon.svg" "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/IntelliJ_IDEA_Logo.svg/1200px-IntelliJ_IDEA_Logo.svg.png"
 
   cat <<EOF >/usr/share/applications/idea

@@ -4,8 +4,6 @@ ARG SETUP_DIR="/tmp/setup"
 ARG TIME_ZONE="Europe/Berlin"
 
 ARG NOVNC_VERSION="v1.2.0"
-ARG WEBSOCKIFY_VERSION="v0.9.0"
-ARG TIGER_VNC_VERSION="1.11.0"
 
 ENV NOVNC_HOME="/opt/novnc"
 ENV VNC_PORT=5901
@@ -28,12 +26,12 @@ RUN echo $TIME_ZONE > /etc/timezone \
 # setup locale
 RUN locale-gen en_US.UTF-8
 
-# setup xfce
-RUN apt-get install -y supervisor xfce4 xfce4-terminal \
- && apt-get purge -y pm-utils xscreensaver*
+# setup mate
+RUN apt-get install -y mate-desktop-environment-extras \
+ && apt-get purge -y mate-power-manager
 
 # setup vnc
-RUN apt-get install -y --no-install-recommends tigervnc-standalone-server tigervnc-common # tigervnc-xorg-extension
+RUN apt-get install -y --no-install-recommends tigervnc-standalone-server tigervnc-common
 
 # ====================================================
 # https://wiki.ubuntuusers.de/VNC/#noVNC-BrowserClient
@@ -45,13 +43,19 @@ RUN mkdir -p ${NOVNC_HOME} \
  && ln -s ${NOVNC_HOME}/vnc_lite.html ${NOVNC_HOME}/index.html
 #RUN apt-get install -y --no-install-recommends novnc
 
+# setup basic tools
+RUN apt-get install --no-install-recommends -y git vim nano
+
 # Add all install scripts for further steps
 COPY ./setup/ ${SETUP_DIR}/scripts
-RUN find ${SETUP_DIR}/scripts -iname "*.sh" -exec chmod +x {} + \
- && for script in $(ls "${SETUP_DIR}/scripts"); do bash "${SETUP_DIR}/scripts/$script"; done
+RUN cd "${SETUP_DIR}/scripts" \
+ && find ${SETUP_DIR}/scripts -iname "*.sh" -exec chmod +x {} + \
+ && for script in $(ls | grep ".sh"); do bash "$script"; done
 
 # clean
-RUN apt-get install --no-install-recommends -y -f \
+RUN apt-get update \
+ && apt-get install --no-install-recommends -y -f \
+# && apt-get autoremove -y \
  && apt-get clean -y \
  && rm -rf /var/lib/apt/lists/* ${SETUP_DIR}
 

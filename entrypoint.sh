@@ -35,13 +35,13 @@ vncserver -kill "${DISPLAY}" &>/dev/stdout ||
   rm -rfv /tmp/.X*-lock /tmp/.X11-unix
 
 echo -e "start vncserver with param: VNC_COL_DEPTH=$VNC_COL_DEPTH, VNC_RESOLUTION=$VNC_RESOLUTION\n..."
-vncserver "${DISPLAY}" -xstartup /usr/bin/xfce4-terminal -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION &>/dev/stdout
+vncserver "${DISPLAY}" -xstartup /usr/bin/mate-terminal -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION &>/dev/stdout
 
-echo -e "\n------------------ startup of Xfce4 window manager ------------------"
+echo -e "\n------------------ startup of mate window manager ------------------"
 
 ### disable screensaver and power management
 xset -dpms &
 xset s noblank &
 xset s off &
 
-/usr/bin/startxfce4 --replace
+/etc/X11/Xsession
