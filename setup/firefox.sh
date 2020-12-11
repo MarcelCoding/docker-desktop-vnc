@@ -6,5 +6,5 @@ set -e
 if [[ $(/usr/bin/id -u) != "0" ]]; then
   echo "Please run the script as root!"
 else
-  apt-get install -y firefox
+  apt-get install -y firefox ffmpeg
 fi

@@ -17,7 +17,7 @@ PASSWD_PATH="$HOME/.vnc/passwd"
 
 if [[ -f $PASSWD_PATH ]]; then
   echo -e "\n---------  purging existing VNC password settings  ---------"
-  rm -f $PASSWD_PATH
+  rm -f "$PASSWD_PATH"
 fi
 
 if [[ $VNC_VIEW_ONLY == "true" ]]; then
@@ -25,9 +25,9 @@ if [[ $VNC_VIEW_ONLY == "true" ]]; then
   #create random pw to prevent access
   echo $(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 20) | vncpasswd -f >$PASSWD_PATH
 fi
-echo "$VNC_PW" | vncpasswd -f >>$PASSWD_PATH
+echo "$VNC_PW" | vncpasswd -f >>"$PASSWD_PATH"
 echo "VNC Pass: $VNC_PW"
-chmod 600 $PASSWD_PATH
+chmod 600 "$PASSWD_PATH"
 
 # vnc
 # Add Prefix
@@ -35,7 +35,7 @@ vncserver -kill "${DISPLAY}" &>/dev/stdout ||
   rm -rfv /tmp/.X*-lock /tmp/.X11-unix
 
 echo -e "start vncserver with param: VNC_COL_DEPTH=$VNC_COL_DEPTH, VNC_RESOLUTION=$VNC_RESOLUTION\n..."
-vncserver "${DISPLAY}" -xstartup /usr/bin/mate-terminal -depth $VNC_COL_DEPTH -geometry $VNC_RESOLUTION &>/dev/stdout
+vncserver "${DISPLAY}" -xstartup /usr/bin/gnome-terminal -depth "$VNC_COL_DEPTH" -geometry "$VNC_RESOLUTION" &>/dev/stdout
 
 echo -e "\n------------------ startup of mate window manager ------------------"
 

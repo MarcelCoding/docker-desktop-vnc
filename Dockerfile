@@ -27,8 +27,8 @@ RUN echo $TIME_ZONE > /etc/timezone \
 RUN locale-gen en_US.UTF-8
 
 # setup mate
-RUN apt-get install -y mate-desktop-environment-extras \
- && apt-get purge -y mate-power-manager
+#RUN apt-get install -y ubuntu-desktop
+RUN apt-get install -y ubuntu-desktop-minimal
 
 # setup vnc
 RUN apt-get install -y --no-install-recommends tigervnc-standalone-server tigervnc-common
