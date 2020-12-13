@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:1
 
 RUN apt-get update \
- && apt-get install -y --no-install-recommends wget ca-certificates locales tzdata net-tools tar
+ && apt-get install -y --no-install-recommends wget ca-certificates locales tzdata net-tools tar software-properties-common apt-transport-https
 
 # setup timezone
 RUN echo $TIME_ZONE > /etc/timezone \
