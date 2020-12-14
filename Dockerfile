@@ -11,13 +11,16 @@ ENV NOVNC_PORT=6901
 ENV VNC_COL_DEPTH=24
 ENV VNC_RESOLUTION=1920x1080
 
+ENV GROUP=group
+ENV USER=user
+
 EXPOSE $VNC_PORT $NOVNC_PORT
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DISPLAY=:1
 
 RUN apt-get update \
- && apt-get install -y --no-install-recommends wget ca-certificates locales tzdata net-tools tar software-properties-common apt-transport-https
+ && apt-get install -y --no-install-recommends wget ca-certificates locales tzdata net-tools tar apt-transport-https
 
 # setup timezone
 RUN echo $TIME_ZONE > /etc/timezone \
@@ -27,37 +30,40 @@ RUN echo $TIME_ZONE > /etc/timezone \
 RUN locale-gen en_US.UTF-8
 
 # setup mate
-#RUN apt-get install -y ubuntu-desktop
-#RUN apt-get install -y ubuntu-desktop-minimal
 RUN apt-get install -y supervisor xfce4 xfce4-terminal \
- && apt-get purge pm-utils xscreensaver*
+ && apt-get purge -y pm-utils xscreensaver* cups
 
 # setup vnc
 RUN apt-get install -y --no-install-recommends tigervnc-standalone-server tigervnc-common
 
-# ====================================================
-# https://wiki.ubuntuusers.de/VNC/#noVNC-BrowserClient
-# setup novnc  #python3-websockify
+# setup novnc
 RUN mkdir -p ${NOVNC_HOME} \
  && wget -qO- "https://github.com/novnc/noVNC/archive/${NOVNC_VERSION}.tar.gz" | tar xz --strip 1 -C ${NOVNC_HOME} \
  && apt-get install -y --no-install-recommends websockify \
  && chmod +x -v ${NOVNC_HOME}/utils/*.sh \
  && ln -s ${NOVNC_HOME}/vnc_lite.html ${NOVNC_HOME}/index.html
-#RUN apt-get install -y --no-install-recommends novnc
 
 # setup basic tools
-RUN apt-get install --no-install-recommends -y git vim nano htop
+RUN apt-get install --no-install-recommends -y git vim nano htop sudo
 
-# Add all install scripts for further steps
+# setup user
+RUN set -o errexit -o nounset \
+ && groupadd --system --gid 1000 ${GROUP} \
+ && useradd --system --gid ${GROUP} --uid 1000 --shell /bin/bash --create-home ${USER} \
+ && chown --recursive ${USER}:${GROUP} /home/${USER} \
+ && usermod -aG sudo ${USER} \
+ && sed -i 's|%sudo\s\{1,\}ALL=(ALL:ALL) ALL|%sudo   ALL=(ALL:ALL) NOPASSWD|g' /etc/sudoers
+
+# add all install scripts for further steps
 COPY ./setup/ ${SETUP_DIR}/scripts
 RUN cd "${SETUP_DIR}/scripts" \
  && find ${SETUP_DIR}/scripts -iname "*.sh" -exec chmod +x {} + \
- && for script in $(ls | grep ".sh"); do bash "$script"; done
+ && for script in $(ls | grep --ignore-case ".sh"); do ./"$script"; done
 
 # clean
 RUN apt-get update \
  && apt-get install --no-install-recommends -y -f \
-# && apt-get autoremove -y \
+ && apt-get autoremove -y \
  && apt-get clean -y \
  && rm -rf /var/lib/apt/lists/* ${SETUP_DIR}
 
@@ -65,4 +71,5 @@ RUN apt-get update \
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+USER ${USER}
 ENTRYPOINT ["/entrypoint.sh"]
