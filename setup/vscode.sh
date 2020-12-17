@@ -16,7 +16,7 @@ else
   sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 
   apt-get update
-  apt-get install -y code
+  apt-get install -y --no-install-recommends code
 
   # install Plugins
   installPlugin zhuangtongfa.material-theme
