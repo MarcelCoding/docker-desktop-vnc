@@ -31,6 +31,9 @@ else
   # PowerShell
   installPlugin "https://plugins.jetbrains.com/files/10249/94564/PowerShell-2.0.5.zip"
 
+  # Rust
+  installPlugin "https://plugins.jetbrains.com/files/8182/105410/intellij-rust-0.3.137.3543-203.zip"
+
   mkdir -p "/home/${USER}/.local/share/applications"
   cat <<EOF >"/home/${USER}/.local/share/applications/jetbrains-idea.desktop"
 [Desktop Entry]
