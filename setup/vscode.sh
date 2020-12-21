@@ -20,16 +20,23 @@ else
 
   # install Plugins
   installPlugin zhuangtongfa.material-theme
-  installPlugin vscode-icons-team.vscode-icons
+  installPlugin pkief.material-icon-theme
   installPlugin jaspernorth.vscode-pigments
   installPlugin ritwickdey.liveserver
+  installPlugin editorconfig.editorconfig
 
   mkdir -p "/home/${USER}/.config/Code/User"
   cat <<EOF >"/home/${USER}/.config/Code/User/settings.json"
 {
-    "workbench.iconTheme": "vscode-icons",
-    "workbench.colorTheme": "One Dark Pro",
-    "window.titleBarStyle": "custom"
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.tree.indent": 15,
+  "files.autoSave": "afterDelay",
+  "git.autofetch": true,
+  "editor.formatOnSave": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "window.titleBarStyle": "custom"
 }
 EOF
 fi
