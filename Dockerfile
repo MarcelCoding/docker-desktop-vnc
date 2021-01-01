@@ -36,7 +36,7 @@ RUN apt-get update \
  && wget -qO- "https://github.com/novnc/noVNC/archive/${NOVNC_VERSION}.tar.gz" | tar xz --strip 1 -C ${NOVNC_HOME} \
  && apt-get install -y --no-install-recommends websockify \
  && chmod +x -v ${NOVNC_HOME}/utils/*.sh \
- && ln -s ${NOVNC_HOME}/vnc_lite.html ${NOVNC_HOME}/index.html \
+ && ln -s ${NOVNC_HOME}/vnc.html ${NOVNC_HOME}/index.html \
  # setup basic tools
  && apt-get install --no-install-recommends -y git vim nano htop sudo \
  # setup user
