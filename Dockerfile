@@ -19,7 +19,13 @@ ENV NOVNC_HOME="/opt/novnc" \
 
 EXPOSE $VNC_PORT $NOVNC_PORT
 
-RUN apt-get update \
+# copy entrypoint
+COPY ./entrypoint.sh /entrypoint.sh
+
+ # make entrypoint executable
+RUN chmod +x /entrypoint.sh \
+ # install base packages
+ && apt-get update \
  && apt-get install -y --no-install-recommends wget ca-certificates locales tzdata net-tools tar apt-transport-https \
  # setup timezone
  && echo $TIME_ZONE > /etc/timezone \
@@ -62,10 +68,6 @@ RUN apt-get update \
  && apt-get clean -y \
  && rm -rf /var/lib/apt/lists/* ${SETUP_DIR} \
  && chown -R ${USER}:${GROUP} /home/${USER}
-
-# setup entrypoint
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
 USER ${USER}
 ENTRYPOINT ["/entrypoint.sh"]
