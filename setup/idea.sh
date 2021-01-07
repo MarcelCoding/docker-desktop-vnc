@@ -13,20 +13,20 @@ if [[ $(/usr/bin/id -u) != "0" ]]; then
   echo "Please run the script as root!"
 else
   mkdir -p /opt/idea
-  wget -O- "https://download-cf.jetbrains.com/idea/ideaIU-2020.3.tar.gz" | tar -xzvC /opt/idea --strip 1
+  wget -O- "https://download-cf.jetbrains.com/idea/ideaIU-2020.3.1.tar.gz" | tar -xzvC /opt/idea --strip 1
 
   # .ignore
-  installPlugin "https://plugins.jetbrains.com/files/7495/105230/.ignore-4.0.0.zip"
+  installPlugin "https://plugins.jetbrains.com/files/7495/106136/.ignore-4.0.2.zip"
 
   # GO & GO Templates
-  installPlugin "https://plugins.jetbrains.com/files/9568/104013/go-203.5981.155.zip"
+  installPlugin "https://plugins.jetbrains.com/files/9568/106609/go-203.6682.168.zip"
   installPlugin "https://plugins.jetbrains.com/files/10581/104141/go-template-203.5981.152.zip"
 
   # PHP
-  installPlugin "https://plugins.jetbrains.com/files/6610/104391/php-203.5981.175.zip"
+  installPlugin "https://plugins.jetbrains.com/files/6610/106348/php-203.6682.137.zip"
 
   # Python (PyCharm IDE Professional) - (Community is another plugin)
-  installPlugin "https://plugins.jetbrains.com/files/631/104351/python-203.5981.165.zip"
+  installPlugin "https://plugins.jetbrains.com/files/631/106697/python-203.6682.179.zip"
 
   # PowerShell
   installPlugin "https://plugins.jetbrains.com/files/10249/94564/PowerShell-2.0.5.zip"
