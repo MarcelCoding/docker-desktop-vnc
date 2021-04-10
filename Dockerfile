@@ -32,7 +32,7 @@ RUN chmod +x /entrypoint.sh \
  && dpkg-reconfigure -f noninteractive tzdata \
  # setup locale
  && locale-gen en_US.UTF-8 \
- # setup mate
+ # setup xfce
  && apt-get install -y supervisor xfce4 xfce4-terminal \
  && apt-get purge -y pm-utils xscreensaver* cups \
  # setup vnc
