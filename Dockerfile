@@ -51,7 +51,13 @@ RUN chmod +x /entrypoint.sh \
  && useradd --system --gid ${GROUP} --uid 1000 --shell /bin/bash --create-home ${USER} \
  && chown --recursive ${USER}:${GROUP} /home/${USER} \
  && usermod -aG sudo ${USER} \
- && sed -i 's|%sudo\s\{1,\}ALL=(ALL:ALL) ALL|%sudo   ALL=(ALL:ALL) NOPASSWD:ALL|g' /etc/sudoers
+ && sed -i 's|%sudo\s\{1,\}ALL=(ALL:ALL) ALL|%sudo   ALL=(ALL:ALL) NOPASSWD:ALL|g' /etc/sudoers \
+ # optimizing layer (do not add files to this layer witch are later removed)
+ && apt-get install --no-install-recommends -y -f \
+ && apt-get autoremove -y \
+ && apt-get clean -y \
+ && rm -rf /var/lib/apt/lists/* ${SETUP_DIR} \
+ && chown -R ${USER}:${GROUP} /home/${USER}
 
 # add all install scripts for further steps
 COPY ./setup/ ${SETUP_DIR}/scripts
