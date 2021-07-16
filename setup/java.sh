@@ -9,5 +9,5 @@ else
   wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add -
   echo "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb $(cat /etc/os-release | grep UBUNTU_CODENAME | cut -d = -f 2) main" | tee /etc/apt/sources.list.d/adoptopenjdk.list
   apt-get update
-  apt-get install -y --no-install-recommends adoptopenjdk-16-hotspot adoptopenjdk-11-hotspot
+  apt-get install -y --no-install-recommends adoptopenjdk-16-openj9 adoptopenjdk-11-openj9
 fi
