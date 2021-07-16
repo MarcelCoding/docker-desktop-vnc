@@ -5,7 +5,7 @@
 [![DockerHub](https://img.shields.io/docker/pulls/marcelcoding/docker-desktop-vnc?style=flat-square)](https://hub.docker.com/r/marcelcoding/docker-desktop-vnc)
 
 Docker Desktop VNC is a working environment witch is running in Docker witch can be accessed
-over [NoVNC](https://github.com/novnc/noVNC), a VNC client for the wbe.
+over [NoVNC](https://github.com/novnc/noVNC), a VNC client for the web.
 
 ## Deployment
 
