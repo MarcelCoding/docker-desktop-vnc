@@ -13,29 +13,29 @@ if [[ $(/usr/bin/id -u) != "0" ]]; then
   echo "Please run the script as root!"
 else
   mkdir -p /opt/idea
-  wget -O- "https://download-cf.jetbrains.com/idea/ideaIU-2020.3.2.tar.gz" | tar -xzvC /opt/idea --strip 1
+  wget -O- "https://download.jetbrains.com/idea/ideaIU-2021.1.3.tar.gz" | tar -xzvC /opt/idea --strip 1
 
   # .ignore
-  installPlugin "https://plugins.jetbrains.com/files/7495/107565/.ignore-4.0.3.zip"
+  installPlugin "https://plugins.jetbrains.com/files/7495/116929/.ignore-4.1.0.zip"
 
   # GO & GO Templates
-  installPlugin "https://plugins.jetbrains.com/files/9568/110521/go-211.5787.15.zip"
-  installPlugin "https://plugins.jetbrains.com/files/10581/110427/go-template-211.5787.4.zip"
+  installPlugin "https://plugins.jetbrains.com/files/9568/126651/go-212.4638.7.zip"
+  installPlugin "https://plugins.jetbrains.com/files/10581/126654/go-template-212.4638.7.zip"
 
   # PHP
-  installPlugin "https://plugins.jetbrains.com/files/6610/110589/php-211.5787.18.zip"
+  installPlugin "https://plugins.jetbrains.com/files/6610/126738/php-212.4638.20.zip"
 
   # Python (PyCharm IDE Professional) - (Community is another plugin)
-  installPlugin "https://plugins.jetbrains.com/files/631/110525/python-211.5787.15.zip"
+  installPlugin "https://plugins.jetbrains.com/files/631/126660/python-212.4638.7.zip"
 
   # PowerShell
-  installPlugin "https://plugins.jetbrains.com/files/10249/94564/PowerShell-2.0.5.zip"
+  installPlugin "https://plugins.jetbrains.com/files/10249/120542/PowerShell-2.0.7.zip"
 
   # Rust
-  installPlugin "https://plugins.jetbrains.com/files/8182/110860/intellij-rust-0.3.141.3674-203.zip"
+  installPlugin "https://plugins.jetbrains.com/files/8182/126137/intellij-rust-0.4.150.3968-211.zip"
 
   # Toml
-  installPlugin "https://plugins.jetbrains.com/files/8195/110862/intellij-toml-0.2.141.3674-203.zip"
+  installPlugin "https://plugins.jetbrains.com/files/8195/126135/intellij-toml-0.2.150.3968-211.zip"
 
   mkdir -p "/home/${USER}/.local/share/applications"
   cat <<EOF >"/home/${USER}/.local/share/applications/jetbrains-idea.desktop"
