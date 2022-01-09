@@ -22,9 +22,6 @@ else
   installPlugin "https://plugins.jetbrains.com/files/9568/126651/go-212.4638.7.zip"
   installPlugin "https://plugins.jetbrains.com/files/10581/126654/go-template-212.4638.7.zip"
 
-  # PHP
-  installPlugin "https://plugins.jetbrains.com/files/6610/126738/php-212.4638.20.zip"
-
   # Python (PyCharm IDE Professional) - (Community is another plugin)
   installPlugin "https://plugins.jetbrains.com/files/631/126660/python-212.4638.7.zip"
 
