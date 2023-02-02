@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:23.04
 
 ARG SETUP_DIR="/tmp/setup"
 ARG TIME_ZONE="Europe/Berlin"
